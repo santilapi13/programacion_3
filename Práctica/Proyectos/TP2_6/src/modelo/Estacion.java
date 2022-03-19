@@ -19,8 +19,30 @@ public class Estacion {
 		return this.surtidores.size();
 	}
 	
-	public existCombustible() {
-		
+	public int existCombustible(char tipo) {		// RESUELVE 2.
+		int i,acum=0;
+		if (tipo != 'G' && tipo != 'g' && tipo != 'S'  && tipo != 's'  && tipo != 'P'  && tipo != 'p')
+			return -1;	// Retorna un valor imposible para evidenciar que hubo un error en el parametro
+		else {
+			switch (tipo) {
+				case 'G','g':
+					for (i=0;i<this.surtidores.size();i++) {
+						acum += this.surtidores.get(i).getCantGasoil();
+					}
+				break;
+				case 'P','p':
+					for (i=0;i<this.surtidores.size();i++) {
+						acum += this.surtidores.get(i).getCantPremium();
+					}
+				break;
+				case 'S','s':
+					for (i=0;i<this.surtidores.size();i++) {
+						acum += this.surtidores.get(i).getCantSuper();
+					}
+				break;
+			}
+			return acum;
+		}
 	}
 	
 }

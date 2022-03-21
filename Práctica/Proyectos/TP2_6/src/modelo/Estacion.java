@@ -15,6 +15,15 @@ public class Estacion {
 		return instance;
 	}
 	
+	
+	public ArrayList<Surtidor> getSurtidores() {
+		return surtidores;
+	}
+
+	public void creaSurtidor() {
+		this.surtidores.add(new Surtidor());
+	}
+	
 	public int cantSurtidores() {	// RESUELVE 1.
 		return this.surtidores.size();
 	}
@@ -45,4 +54,76 @@ public class Estacion {
 		}
 	}
 	
+	public Surtidor surtMasVentas(char tipo) {		// RESUELVE 3.
+		int i,max=-1;
+		Surtidor sMax = null,act;	// En caso de no haber surtidores retornará null
+		if (tipo == 'G' || tipo == 'g' || tipo == 'S'  || tipo == 's'  || tipo == 'P'  || tipo == 'p') {
+			switch (tipo) {
+				case 'G','g':
+					for (i=0;i<this.surtidores.size();i++) {
+						act = this.surtidores.get(i);
+						if (act.getGasoilVentas() > max) {
+							max = act.getGasoilVentas();
+							sMax = act;
+						}
+					}
+				break;
+				case 'P','p':
+					for (i=0;i<this.surtidores.size();i++) {
+						act = this.surtidores.get(i);
+						if (act.getPremiumVentas() > max) {
+							max = act.getPremiumVentas();
+							sMax = act;
+						}
+					}
+				break;
+				case 'S','s':
+					for (i=0;i<this.surtidores.size();i++) {
+						act = this.surtidores.get(i);
+						if (act.getSuperVentas() > max) {
+							max = act.getSuperVentas();
+							sMax = act;
+						}
+					}
+				break;
+			}
+		}
+		return sMax;
+	}
+	
+	public int historicoComb(char tipo, Surtidor surtidor) {	// RESUELVE 4.
+		int i,acum=0;
+		if (surtidor == null) {		// Toda la estacion
+			switch (tipo) {
+				case 'G','g':
+					for (i=0;i<this.surtidores.size();i++) {
+						acum += this.surtidores.get(i).getGasoilVendido();
+					}
+				break;
+				case 'P','p':
+					for (i=0;i<this.surtidores.size();i++) {
+						acum += this.surtidores.get(i).getPremiumVendido();
+					}
+				break;
+				case 'S','s':
+					for (i=0;i<this.surtidores.size();i++) {
+						acum += this.surtidores.get(i).getSuperVendido();
+					}
+				break;
+				default:
+					acum = -1;
+			}
+			return acum;
+		} else {	// Surtidor especifico
+			switch (tipo) {
+				case 'G','g':
+					return surtidor.getGasoilVendido();
+				case 'P','p':
+					return surtidor.getPremiumVendido();
+				case 'S','s':
+					return surtidor.getSuperVendido();
+			}
+			return -1;
+		}
+	}
 }

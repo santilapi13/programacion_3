@@ -30,8 +30,9 @@ public class Contacto {
 	public ArrayList<String> getCelulares() {
 		return celulares;
 	}
-	public void setCelulares(ArrayList<String> celulares) {
-		this.celulares = celulares;
+
+	public String toString() {
+		return "nombre=" + nombre + ", telFijo=" + telFijo + ", celulares=" + celulares;
 	}
 	
 	
